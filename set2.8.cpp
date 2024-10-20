@@ -2,28 +2,38 @@
 
 using namespace std;
 
-int maxProfit(int prices[], int n) {
-    int min_price = 1000000; 
-    int max_profit = 0;
+void maxSumOfKConsecutiveElements(int arr[], int n, int k) {
+    if (n < k) {
+        cout << "Invalid" << endl;
+        return;
+    }
 
-    for (int i = 0; i < n; ++i) {
-        if (prices[i] < min_price) {
-            min_price = prices[i];
-        } else if (prices[i] - min_price > max_profit) {
-            max_profit = prices[i] - min_price;
+    int max_sum = 0;
+    for (int i = 0; i < k; ++i) {
+        max_sum += arr[i];
+    }
+
+    int window_sum = max_sum;
+    for (int i = k; i < n; ++i) {
+        window_sum += arr[i] - arr[i - k];
+        if (window_sum > max_sum) {
+            max_sum = window_sum;
         }
     }
 
-    return max_profit;
+    cout << "Maximum sum of " << k << " consecutive elements: " << max_sum << endl;
 }
 
 int main() {
-    int prices[] = {7, 1, 5, 3, 6, 4};
-    int n = sizeof(prices) / sizeof(prices[0]);
+    int arr1[] = {100, 200, 300, 400};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    int k1 = 2;
+    maxSumOfKConsecutiveElements(arr1, n1, k1);
 
-    int profit = maxProfit(prices, n);
-    cout << "Maximum profit: " << profit << endl;
+    int arr2[] = {1, 4, 2, 10, 23, 3, 1, 0, 20};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    int k2 = 4;
+    maxSumOfKConsecutiveElements(arr2, n2, k2);
 
-    return 0;
-}
-
+    int arr3[] = {2, 3};
+    int n3 = sizeof(arr3) / sizeof(arr3
